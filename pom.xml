@@ -1,0 +1,132 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <parent>
+        <groupId>com.gumtree.maven-parent</groupId>
+        <artifactId>core</artifactId>
+        <version>3.0-SNAPSHOT</version>
+        <relativePath/>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.gumtree.madgex.adimporter</groupId>
+    <artifactId>parent</artifactId>
+    <packaging>pom</packaging>
+    <version>3.0-SNAPSHOT</version>
+    <name>Madgex Advert Importer: Parent</name>
+
+    <modules>
+        <module>model</module>
+        <module>server</module>
+    </modules>
+
+    <scm>
+        <connection>scm:git:ssh://git@github.scm.corp.ebay.com/gumtree/madgex-advert-importer.git</connection>
+        <url>scm:git:ssh://git@github.scm.corp.ebay.com/gumtree/madgex-advert-importer.git</url>
+    </scm>
+
+    <properties>
+        <checkstyle.maxviolations>2</checkstyle.maxviolations>
+        <java.version>1.8</java.version>
+
+        <!-- internal gumtree components -->
+        <gt.version>${project.version}</gt.version>
+        <gt.category.api.client.version>4.39326</gt.category.api.client.version>
+        <gt.gumtree.shared.common.properties.version>5.9</gt.gumtree.shared.common.properties.version>
+        <gt.gumtree.metrics.version>4.29920</gt.gumtree.metrics.version>
+        <gt.search.api.index.config.version>4.39364</gt.search.api.index.config.version>
+
+        <!-- scalac -->
+        <scala.version>2.11.11</scala.version>
+        <scala.major.version>2.11</scala.major.version>
+
+        <spring.version>5.0.7.RELEASE</spring.version>
+        <jackson2.version>2.9.6</jackson2.version>
+        <elastic4s.version>6.3.7</elastic4s.version>
+        <http4s.version>0.20.0-M5</http4s.version>
+        <lucene.version>7.3.1</lucene.version>
+
+        <!-- test libraries -->
+        <scalatest.version>3.0.5</scalatest.version>
+
+        <akka.version>2.3.0</akka.version>
+        <logback.version>1.1.6</logback.version>
+        <guava.version>23.0</guava.version>
+
+        <!-- plugins -->
+        <scalatest.plugin.version>1.0</scalatest.plugin.version>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.scala-tools</groupId>
+                <artifactId>maven-scala-plugin</artifactId>
+                <version>2.15.2</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compile</goal>
+                            <goal>testCompile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <scalaVersion>${scala.version}</scalaVersion>
+                </configuration>
+            </plugin>
+            <plugin>
+               <groupId>org.apache.maven.plugins</groupId>
+               <artifactId>maven-javadoc-plugin</artifactId>
+               <version>2.9</version>
+               <configuration>
+                   <skip>true</skip>
+               </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.14</version>
+                <configuration>
+                    <skipTests>true</skipTests>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.scalatest</groupId>
+                <artifactId>scalatest-maven-plugin</artifactId>
+                <version>${scalatest.plugin.version}</version>
+                <configuration combine.self="override">
+                    <argLine>-XX:MaxPermSize=1024m -XX:+CMSPermGenSweepingEnabled -XX:+CMSClassUnloadingEnabled</argLine>
+                    <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
+                    <junitxml>.</junitxml>
+                    <filereports>WDF ScalatestReport.txt</filereports>
+                    <testFailureIgnore>false</testFailureIgnore>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>test</id>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <!-- scala -->
+        <dependency>
+            <groupId>org.scala-lang</groupId>
+            <artifactId>scala-library</artifactId>
+            <version>2.11.8</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.scalatest</groupId>
+            <artifactId>scalatest_2.11</artifactId>
+            <version>3.0.5</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+</project>
