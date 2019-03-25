@@ -3,8 +3,6 @@ target
 *.iml
 atlassian-ide-plugin.xml
 tools/dependency-reduced-pom.xml
-gumtree.iws
-gumtree.ipr
 *.bak
 work
 *~
